@@ -1,16 +1,27 @@
 import { connectToDatabase } from "utils/mongodb";
+import styled from "styled-components";
+import Sidebar from "pages/components/Sidebar";
+import CatalogueBook from "pages/components/CatalogueBook";
+
+const Container = styled.div`
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+`;
+
+const Main = styled.div`
+  border: 1px solid red;
+  color: red;
+  padding: 32px;
+`;
 
 export default function Home({ books }) {
-  return books.map((book, idx1) => (
-    <div key={`book-${book.name}-${idx1}`}>
-      <div>{book.name}</div>
-      <ul>
-        {book.notes.map((note, idx2) => (
-          <li key={`${book.name}-note-${idx2}`}>{note}</li>
-        ))}
-      </ul>
-    </div>
-  ));
+  return (
+    <Container>
+      <Sidebar />
+      <Main>it's the motha fuckin dogg</Main>
+    </Container>
+  );
 }
 
 export async function getStaticProps() {

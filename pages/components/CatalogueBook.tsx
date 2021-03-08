@@ -6,7 +6,7 @@ interface CatalogueBookProps {
 }
 
 const CatalogueBook: FunctionComponent<CatalogueBookProps> = ({ name }) => {
-  return <div className={styles.container}></div>;
+  return <div className={styles.container}>{name}</div>;
 };
 
 export default CatalogueBook;
