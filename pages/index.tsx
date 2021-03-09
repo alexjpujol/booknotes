@@ -1,5 +1,6 @@
 import { connectToDatabase } from "utils/mongodb";
 import styled from "styled-components";
+import Header from "pages/components/Header";
 import Sidebar from "pages/components/Sidebar";
 import CatalogueBook from "pages/components/CatalogueBook";
 
@@ -10,17 +11,26 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
-  border: 1px solid red;
-  color: red;
   padding: 32px;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 export default function Home({ books }) {
   return (
-    <Container>
-      <Sidebar />
-      <Main>it's the motha fuckin dogg</Main>
-    </Container>
+    <>
+      <Header />
+      <Container>
+        <Sidebar />
+        <Main>
+          {books.map((book) => (
+            <CatalogueBook key={book.id} {...book} />
+          ))}
+        </Main>
+      </Container>
+    </>
   );
 }
 

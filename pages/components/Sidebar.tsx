@@ -1,21 +1,29 @@
 import styled from "styled-components";
 
 const Main = styled.div`
-  border: 1px solid black;
   padding: 32px;
-  color: green;
 `;
 
-const years = [2019, 2020, 2021];
+const YearList = styled.ul`
+  list-style-type: none;
+  text-align: center;
+  padding: 0;
+`;
+
+const Year = styled.li`
+  margin: 8px;
+`;
+
+const years = [2021, 2020, 2019];
 
 export const Sidebar = () => {
   return (
     <Main>
-      <ul>
+      <YearList>
         {years.map((year) => (
-          <li key={`${year}-sidenav`}>{year}</li>
+          <Year key={`${year}-sidenav`}>{year}</Year>
         ))}
-      </ul>
+      </YearList>
     </Main>
   );
 };
