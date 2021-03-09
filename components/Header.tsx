@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import IconWrapper from "pages/components/common/IconWrapper";
-import AddIcon from "pages/components/Icons/AddIcon";
+import IconWrapper from "components/common/IconWrapper";
+import AddIcon from "components/Icons/AddIcon";
 import { ElementSizes } from "types";
 
 const Main = styled.div`

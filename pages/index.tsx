@@ -2,9 +2,9 @@ import { GetServerSideProps } from "next";
 import styled from "styled-components";
 import dbConnection from "utils/mongodb";
 import Book from "models/Book";
-import Header from "pages/components/Header";
-import Sidebar from "pages/components/Sidebar";
-import CatalogueBook from "pages/components/CatalogueBook";
+import Header from "components/Header";
+import Sidebar from "components/Sidebar";
+import CatalogueBook from "components/CatalogueBook";
 
 const Container = styled.div`
   min-height: 100vh;

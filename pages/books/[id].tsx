@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import dbConnection from "utils/mongodb";
 import Book from "models/Book";
-import Header from "pages/components/Header";
-import Note from "pages/components/Note";
-import IconWrapper from "pages/components/common/IconWrapper";
-import AddIcon from "pages/components/Icons/AddIcon";
+import Header from "components/Header";
+import Note from "components/Note";
+import IconWrapper from "components/common/IconWrapper";
+import AddIcon from "components/Icons/AddIcon";
 import { ElementSizes } from "types";
 
 const Main = styled.div`
