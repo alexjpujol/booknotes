@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import Add from "pages/components/Icons/add";
+import IconWrapper from "pages/components/common/IconWrapper";
+import AddIcon from "pages/components/Icons/AddIcon";
+import { ElementSizes } from "types";
 
 const Main = styled.div`
   padding: 8px;
@@ -7,19 +9,15 @@ const Main = styled.div`
   align-items: center;
 `;
 
-const AddButton = styled.button`
-  border: none;
-  background-color: white;
-  margin-right: 32px;
-`;
+interface HeaderProps {
+  title: string;
+}
 
-const Header = () => {
+const Header = ({ title }) => {
   return (
     <Main>
-      <AddButton>
-        <Add />
-      </AddButton>
-      <h1>Booknotes</h1>
+      <IconWrapper icon={AddIcon} size={ElementSizes.lg} />
+      <h1>{title}</h1>
     </Main>
   );
 };

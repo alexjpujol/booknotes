@@ -1,5 +1,7 @@
-import { connectToDatabase } from "utils/mongodb";
+import { GetServerSideProps } from "next";
 import styled from "styled-components";
+import dbConnection from "utils/mongodb";
+import Book from "models/Book";
 import Header from "pages/components/Header";
 import Sidebar from "pages/components/Sidebar";
 import CatalogueBook from "pages/components/CatalogueBook";
@@ -21,7 +23,7 @@ const Main = styled.div`
 export default function Home({ books }) {
   return (
     <>
-      <Header />
+      <Header title="Booknotes" />
       <Container>
         <Sidebar />
         <Main>
@@ -34,17 +36,17 @@ export default function Home({ books }) {
   );
 }
 
-export async function getStaticProps() {
-  const { db } = await connectToDatabase();
-  const books = await db
-    .collection("books")
-    .find({})
-    .sort({})
-    .limit(100)
-    .toArray();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  await dbConnection();
+  const results = await Book.find({});
+  const books = results.map((result) => {
+    const book = result.toObject();
+    book._id = book._id.toString();
+    return book;
+  });
   return {
     props: {
-      books: JSON.parse(JSON.stringify(books)),
+      books,
     },
   };
-}
+};

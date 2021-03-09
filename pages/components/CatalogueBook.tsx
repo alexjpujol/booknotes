@@ -1,9 +1,9 @@
-import { FunctionComponent, MouseEvent } from "react";
-import { useRouter } from "next/router";
+import { FunctionComponent } from "react";
+import Link from "next/link";
 import styled from "styled-components";
 
 interface CatalogueBookProps {
-  id: string;
+  _id: string;
   name: string;
 }
 
@@ -15,20 +15,21 @@ const BookContainer = styled.div`
   text-align: center;
 `;
 
-const CatalogueBook: FunctionComponent<CatalogueBookProps> = ({ id, name }) => {
-  const router = useRouter();
-  const handleClick = (e: MouseEvent) => {
-    e.preventDefault();
-    router.push(`books/${id}`);
-  };
+const BookTitle = styled.h2`
+  text-decoration: none;
+`;
 
+const CatalogueBook: FunctionComponent<CatalogueBookProps> = ({
+  _id,
+  name,
+}) => {
   return (
     <BookContainer>
-      <h2>
-        <a href={`books/${id}`} onClick={handleClick}>
-          {name}
-        </a>
-      </h2>
+      <BookTitle>
+        <Link href={`/books/${_id}`}>
+          <a>{name}</a>
+        </Link>
+      </BookTitle>
     </BookContainer>
   );
 };
