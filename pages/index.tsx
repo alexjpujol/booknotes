@@ -1,7 +1,11 @@
+// next
 import { GetServerSideProps } from "next";
+import ErrorPage from "next/error";
+// lib
+import fetch from "node-fetch";
+import absoluteUrl from "next-absolute-url";
 import styled from "styled-components";
-import dbConnection from "utils/mongodb";
-import Book from "models/Book";
+// components
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
 import CatalogueBook from "components/CatalogueBook";
@@ -21,6 +25,10 @@ const Main = styled.div`
 `;
 
 export default function Home({ books }) {
+  if (!books) {
+    return <ErrorPage statusCode={404} />;
+  }
+
   return (
     <>
       <Header title="Booknotes" />
@@ -37,16 +45,20 @@ export default function Home({ books }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  await dbConnection();
-  const results = await Book.find({});
-  const books = results.map((result) => {
-    const book = result.toObject();
-    book._id = book._id.toString();
-    return book;
-  });
-  return {
-    props: {
-      books,
-    },
-  };
+  const { req, res } = context;
+  try {
+    const { origin } = absoluteUrl(req);
+    const result = await fetch(`${origin}/api/books`);
+    const books = await result.json();
+    return {
+      props: {
+        books,
+      },
+    };
+  } catch {
+    res.statusCode = 404;
+    return {
+      props: {},
+    };
+  }
 };

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FunctionComponent, ReactNode } from "react";
+import { FunctionComponent, ReactNode, MouseEvent } from "react";
 import { ElementSizes } from "types";
 
 const StyledButton = styled.button`
@@ -10,7 +10,7 @@ const StyledButton = styled.button`
 
 interface IconWrapperProps {
   size?: ElementSizes;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
   icon: ReactNode;
 }
 

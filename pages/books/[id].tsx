@@ -1,12 +1,16 @@
-import styled from "styled-components";
-import { useRouter } from "next/router";
+// next
 import { GetServerSideProps } from "next";
-import dbConnection from "utils/mongodb";
-import Book from "models/Book";
+import ErrorPage from "next/error";
+// lib
+import styled from "styled-components";
+import fetch from "node-fetch";
+import absoluteUrl from "next-absolute-url";
+// components
 import Header from "components/Header";
 import Note from "components/Note";
 import IconWrapper from "components/common/IconWrapper";
 import AddIcon from "components/Icons/AddIcon";
+// types
 import { ElementSizes } from "types";
 
 const Main = styled.div`
@@ -24,8 +28,10 @@ const ButtonContainer = styled.div`
 `;
 
 export const BookDetail = ({ book }) => {
-  const router = useRouter();
-  const { id } = router.query;
+  if (!book) {
+    return <ErrorPage statusCode={404} />;
+  }
+
   return (
     <>
       <Header title={book.name} />
@@ -42,14 +48,22 @@ export const BookDetail = ({ book }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  await dbConnection();
-  const book = await Book.findById(context.params.id).lean();
-  book._id = book._id.toString();
-  return {
-    props: {
-      book,
-    },
-  };
+  const { params, req, res } = context;
+  try {
+    const { origin } = absoluteUrl(req);
+    const result = await fetch(`${origin}/api/books/${params.id}`);
+    const book = await result.json();
+    return {
+      props: {
+        book,
+      },
+    };
+  } catch {
+    res.statusCode = 404;
+    return {
+      props: {},
+    };
+  }
 };
 
 export default BookDetail;
