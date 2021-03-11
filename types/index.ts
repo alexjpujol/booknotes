@@ -18,6 +18,12 @@ export interface CreateNoteValues {
   noteText: string;
 }
 
+export interface EditOrDeleteNoteValues {
+  bookId: string;
+  noteText: string;
+  newNoteText?: string;
+}
+
 export enum ElementSizes {
   sm = "sm",
   md = "md",

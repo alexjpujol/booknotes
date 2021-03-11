@@ -1,23 +1,30 @@
 // next
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import { useState, FunctionComponent } from "react";
+import { useState, FunctionComponent, BaseSyntheticEvent } from "react";
 // lib
 import styled from "styled-components";
 import fetch from "node-fetch";
 // components
 import Header from "components/Header";
 import Note from "components/Note";
-import AddNoteForm from "components/AddNoteForm";
+import NoteForm from "components/NoteForm";
 import IconWrapper from "components/common/IconWrapper";
 import AddIcon from "components/icons/AddIcon";
 // types
-import { Book, ElementSizes } from "types";
+import { Book, ElementSizes, CreateNoteValues } from "types";
 
 const Main = styled.div`
   padding: 32px;
   display: flex;
   flex-wrap: wrap;
+`;
+
+const FormContainer = styled.div`
+  height: 250px;
+  width: 250px;
+  margin: 24px;
 `;
 
 const ButtonContainer = styled.div`
@@ -36,8 +43,30 @@ export const BookDetail: FunctionComponent<BookDetailProps> = ({ book }) => {
   if (!book) {
     return <ErrorPage statusCode={404} />;
   }
-
+  const router = useRouter();
   const [showAddNoteForm, setShowAddNoteForm] = useState(false);
+
+  const createNote = async (event: BaseSyntheticEvent) => {
+    try {
+      event.preventDefault();
+      const formValues: CreateNoteValues = {
+        bookId: book._id,
+        noteText: event.target.noteText.value,
+      };
+      const res = await fetch(`/api/note`, {
+        body: JSON.stringify(formValues),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+      if (res.status === 201) {
+        router.reload();
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
 
   return (
     <>
@@ -47,10 +76,12 @@ export const BookDetail: FunctionComponent<BookDetailProps> = ({ book }) => {
           <Note key={`${idx}-book-${book.name}`} text={note} />
         ))}
         {showAddNoteForm ? (
-          <AddNoteForm
-            bookId={book._id}
-            onClose={() => setShowAddNoteForm(false)}
-          />
+          <FormContainer>
+            <NoteForm
+              onSubmit={createNote}
+              onClose={() => setShowAddNoteForm(false)}
+            />
+          </FormContainer>
         ) : (
           <ButtonContainer>
             <IconWrapper
