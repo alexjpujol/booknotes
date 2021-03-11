@@ -4,9 +4,13 @@ import dbConnection from "utils/mongodb";
 import initMiddleware from "utils/init-middleware";
 import Book from "models/Book";
 
-const cors = initMiddleware(Cors());
+const cors = initMiddleware(
+  Cors({
+    methods: ["GET", "POST", "OPTIONS"],
+  })
+);
 
-export const book: NextApiHandler = async (req, res) => {
+const book: NextApiHandler = async (req, res) => {
   await cors(req, res);
   await dbConnection();
   const { id } = req.query;

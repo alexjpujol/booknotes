@@ -11,8 +11,15 @@ const BookSchema = new mongoose.Schema({
     required: [true, "Please provide the book genre"],
   },
   image_url: {
-    required: [true, "Please provide an image url for this book."],
+    // required: [true, "Please provide an image url for this book."],
     type: String,
+  },
+  dateStart: {
+    required: [true, "Please provide a start date for this book."],
+    type: Date,
+  },
+  dateEnd: {
+    type: Date,
   },
   notes: {
     type: Array,

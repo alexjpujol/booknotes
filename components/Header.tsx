@@ -1,6 +1,10 @@
+// lib
+import { FunctionComponent } from "react";
 import styled from "styled-components";
+// components
 import IconWrapper from "components/common/IconWrapper";
-import AddIcon from "components/Icons/AddIcon";
+import AddIcon from "components/icons/AddIcon";
+// types
 import { ElementSizes } from "types";
 
 const Main = styled.div`
@@ -13,7 +17,7 @@ interface HeaderProps {
   title: string;
 }
 
-const Header = ({ title }) => {
+const Header: FunctionComponent<HeaderProps> = ({ title }) => {
   return (
     <Main>
       <IconWrapper icon={AddIcon} size={ElementSizes.lg} />

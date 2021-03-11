@@ -1,17 +1,18 @@
 // next
 import { GetServerSideProps } from "next";
 import ErrorPage from "next/error";
+import { useState, FunctionComponent } from "react";
 // lib
 import styled from "styled-components";
 import fetch from "node-fetch";
-import absoluteUrl from "next-absolute-url";
 // components
 import Header from "components/Header";
 import Note from "components/Note";
+import AddNoteForm from "components/AddNoteForm";
 import IconWrapper from "components/common/IconWrapper";
-import AddIcon from "components/Icons/AddIcon";
+import AddIcon from "components/icons/AddIcon";
 // types
-import { ElementSizes } from "types";
+import { Book, ElementSizes } from "types";
 
 const Main = styled.div`
   padding: 32px;
@@ -27,10 +28,16 @@ const ButtonContainer = styled.div`
   padding-top: 120px;
 `;
 
-export const BookDetail = ({ book }) => {
+interface BookDetailProps {
+  book: Book;
+}
+
+export const BookDetail: FunctionComponent<BookDetailProps> = ({ book }) => {
   if (!book) {
     return <ErrorPage statusCode={404} />;
   }
+
+  const [showAddNoteForm, setShowAddNoteForm] = useState(false);
 
   return (
     <>
@@ -39,19 +46,29 @@ export const BookDetail = ({ book }) => {
         {book.notes.map((note, idx) => (
           <Note key={`${idx}-book-${book.name}`} text={note} />
         ))}
-        <ButtonContainer>
-          <IconWrapper icon={AddIcon} size={ElementSizes.lg} />
-        </ButtonContainer>
+        {showAddNoteForm ? (
+          <AddNoteForm
+            bookId={book._id}
+            onClose={() => setShowAddNoteForm(false)}
+          />
+        ) : (
+          <ButtonContainer>
+            <IconWrapper
+              onClick={() => setShowAddNoteForm(true)}
+              icon={AddIcon}
+              size={ElementSizes.lg}
+            />
+          </ButtonContainer>
+        )}
       </Main>
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params, req, res } = context;
+  const { params, res } = context;
   try {
-    const { origin } = absoluteUrl(req);
-    const result = await fetch(`${origin}/api/books/${params.id}`);
+    const result = await fetch(`${process.env.API_URL}/api/books/${params.id}`);
     const book = await result.json();
     return {
       props: {

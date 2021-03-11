@@ -6,6 +6,9 @@ const StyledButton = styled.button`
   border: none;
   background-color: white;
   margin-right: 32px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 interface IconWrapperProps {

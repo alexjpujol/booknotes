@@ -2,13 +2,15 @@
 import { GetServerSideProps } from "next";
 import ErrorPage from "next/error";
 // lib
+import { FunctionComponent } from "react";
 import fetch from "node-fetch";
-import absoluteUrl from "next-absolute-url";
 import styled from "styled-components";
 // components
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
 import CatalogueBook from "components/CatalogueBook";
+// types
+import { Book } from "types";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -24,7 +26,11 @@ const Main = styled.div`
   flex-wrap: wrap;
 `;
 
-export default function Home({ books }) {
+interface HomeProps {
+  books: Array<Book>;
+}
+
+const Home: FunctionComponent<HomeProps> = ({ books }) => {
   if (!books) {
     return <ErrorPage statusCode={404} />;
   }
@@ -36,19 +42,20 @@ export default function Home({ books }) {
         <Sidebar />
         <Main>
           {books.map((book) => (
-            <CatalogueBook key={book.id} {...book} />
+            <CatalogueBook key={book._id} {...book} />
           ))}
         </Main>
       </Container>
     </>
   );
-}
+};
+
+export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req, res } = context;
+  const { res } = context;
   try {
-    const { origin } = absoluteUrl(req);
-    const result = await fetch(`${origin}/api/books`);
+    const result = await fetch(`${process.env.API_URL}/api/books`);
     const books = await result.json();
     return {
       props: {
