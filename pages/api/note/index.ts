@@ -16,13 +16,18 @@ const newNote: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  await cors(req, res);
-  await dbConnection();
-  const { body } = req;
-  const book = await Book.findById(body.bookId);
-  book.notes.push(body.noteText);
-  await book.save();
-  return res.status(201).json(book._id);
+  try {
+    await cors(req, res);
+    await dbConnection();
+    const { body } = req;
+    const book = await Book.findById(body.bookId);
+    book.notes.push(body.noteText);
+    await book.save();
+    res.statusCode = 201;
+    return res.end();
+  } catch (e) {
+    return res.status(500).json({ statusCode: 500, message: e.message });
+  }
 };
 
 const editNote: NextApiHandler = async (
@@ -33,13 +38,18 @@ const editNote: NextApiHandler = async (
     await cors(req, res);
     await dbConnection();
     const { body } = req;
-    Book.updateOne(
-      { _id: body.bookId, notes: body.noteText },
-      { $set: { "notes.$": body.newNoteText } }
-    );
-    return res.status(200).end();
+    const book = await Book.findById(body.bookId);
+    book.notes = book.notes.map((note: string) => {
+      if (note === body.noteText) {
+        note = body.newNoteText;
+      }
+      return note;
+    });
+    book.save();
+    res.statusCode = 200;
+    return res.end();
   } catch (e) {
-    res.status(500).json({ statusCode: 500, message: e.message });
+    return res.status(500).json({ statusCode: 500, message: e.message });
   }
 };
 
@@ -53,10 +63,11 @@ const deleteNote: NextApiHandler = async (
     const { body } = req;
     const book = await Book.findById(body.bookId);
     book.notes.pull(body.noteText);
-    book.save();
-    return res.status(200).end();
+    await book.save();
+    res.statusCode = 200;
+    return res.end();
   } catch (e) {
-    res.status(500).json({ statusCode: 500, message: e.message });
+    return res.status(500).json({ statusCode: 500, message: e.message });
   }
 };
 
@@ -70,9 +81,14 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case "POST":
       newNote(req, res);
+      break;
     case "PUT":
       editNote(req, res);
+      break;
     case "DELETE":
       deleteNote(req, res);
+      break;
+    default:
+      res.status(405).end();
   }
 };

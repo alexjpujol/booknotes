@@ -1,5 +1,8 @@
-import { FunctionComponent } from "react";
+// next
 import Link from "next/link";
+// lib
+import { FunctionComponent } from "react";
+import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 
 interface CatalogueBookProps {
@@ -15,8 +18,15 @@ const BookContainer = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;
 
-const BookTitle = styled.h2`
-  text-decoration: none;
+const BookTitle = styled(Typography)`
+  margin-top: 12px !important;
+  a {
+    text-decoration: underline;
+  }
+
+  a:visited {
+    color: black;
+  }
 `;
 
 const CatalogueBook: FunctionComponent<CatalogueBookProps> = ({
@@ -25,7 +35,7 @@ const CatalogueBook: FunctionComponent<CatalogueBookProps> = ({
 }) => {
   return (
     <BookContainer>
-      <BookTitle>
+      <BookTitle variant="h5">
         <Link href={`/books/${_id}`}>
           <a>{name}</a>
         </Link>

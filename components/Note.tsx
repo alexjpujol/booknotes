@@ -56,7 +56,8 @@ const Note: FunctionComponent<NoteProps> = ({ text }) => {
         method: "PUT",
       });
       if (res.status === 200) {
-        router.push(`/books/${bookId}`, undefined, { shallow: false });
+        timeout(2000);
+        router.reload();
       }
     } catch (e) {
       throw new Error(e);
@@ -77,6 +78,7 @@ const Note: FunctionComponent<NoteProps> = ({ text }) => {
         method: "DELETE",
       });
       if (res.status === 200) {
+        timeout(2000);
         router.reload();
       }
     } catch (e) {

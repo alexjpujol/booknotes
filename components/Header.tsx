@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 // lib
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import { Typography } from "@material-ui/core";
 // components
 import IconWrapper from "components/common/IconWrapper";
 import AddIcon from "components/icons/AddIcon";
@@ -8,9 +10,13 @@ import AddIcon from "components/icons/AddIcon";
 import { ElementSizes } from "types";
 
 const Main = styled.div`
-  padding: 8px;
+  padding: 16px 32px;
   display: flex;
-  align-items: center;
+`;
+
+const IconSpacer = styled.div`
+  margin-top: 32px;
+  margin-right: 40%;
 `;
 
 interface HeaderProps {
@@ -18,10 +24,17 @@ interface HeaderProps {
 }
 
 const Header: FunctionComponent<HeaderProps> = ({ title }) => {
+  const router = useRouter();
   return (
     <Main>
-      <IconWrapper icon={AddIcon} size={ElementSizes.lg} />
-      <h1>{title}</h1>
+      <IconSpacer>
+        <IconWrapper
+          onClick={() => router.push(`/books/new`)}
+          icon={AddIcon}
+          size={ElementSizes.lg}
+        />
+      </IconSpacer>
+      <Typography variant="h2">{title}</Typography>
     </Main>
   );
 };

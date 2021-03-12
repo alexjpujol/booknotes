@@ -1,7 +1,5 @@
-// next
-import { useRouter } from "next/router";
 // lib
-import { FunctionComponent, BaseSyntheticEvent, useRef } from "react";
+import { FunctionComponent, BaseSyntheticEvent } from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button`

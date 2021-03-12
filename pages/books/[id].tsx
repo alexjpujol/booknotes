@@ -6,6 +6,7 @@ import { useState, FunctionComponent, BaseSyntheticEvent } from "react";
 // lib
 import styled from "styled-components";
 import fetch from "node-fetch";
+import { timeout } from "utils/timeout";
 // components
 import Header from "components/Header";
 import Note from "components/Note";
@@ -63,6 +64,7 @@ export const BookDetail: FunctionComponent<BookDetailProps> = ({ book }) => {
         method: "POST",
       });
       if (res.status === 201) {
+        timeout(2000);
         router.reload();
       }
     } catch (e) {
