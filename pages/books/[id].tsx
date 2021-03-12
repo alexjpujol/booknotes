@@ -20,6 +20,50 @@ const Main = styled.div`
   padding: 32px;
   display: flex;
   flex-wrap: wrap;
+
+  /* Binder Paper Effect */
+  font-size: 16px;
+  height: 100vh;
+
+  background-image: -webkit-linear-gradient(
+      0deg,
+      transparent 5em,
+      rgba(255, 0, 0, 0.2) 0,
+      transparent 5.1em
+    ),
+    -webkit-linear-gradient(rgba(0, 0, 255, 0.3) 1px, transparent 0);
+  background-image: -moz-linear-gradient(
+      0deg,
+      transparent 5em,
+      rgba(255, 0, 0, 0.2) 0,
+      transparent 5.1em
+    ),
+    -moz-linear-gradient(rgba(0, 0, 255, 0.3) 1px, transparent 0);
+  background-image: -o-linear-gradient(
+      0deg,
+      transparent 5em,
+      rgba(255, 0, 0, 0.2) 0,
+      transparent 5.1em
+    ),
+    -o-linear-gradient(rgba(0, 0, 255, 0.3) 1px, transparent 0);
+  background-image: -ms-linear-gradient(
+      0deg,
+      transparent 5em,
+      rgba(255, 0, 0, 0.2) 0,
+      transparent 5.1em
+    ),
+    -ms-linear-gradient(rgba(0, 0, 255, 0.3) 1px, transparent 0);
+  -webkit-background-size: 100% 2em;
+  -moz-background-size: 100% 2em;
+
+  background-image: linear-gradient(
+      0deg,
+      transparent 5em,
+      rgba(255, 0, 0, 0.2) 0,
+      transparent 5.1em
+    ),
+    linear-gradient(rgba(0, 0, 255, 0.3) 1px, transparent 0);
+  background-size: 100% 2em;
 `;
 
 const FormContainer = styled.div`
@@ -36,6 +80,7 @@ const ButtonContainer = styled.div`
   padding-top: 120px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   box-sizing: border-box;
+  background-color: white;
 `;
 
 interface BookDetailProps {

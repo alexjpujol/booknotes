@@ -1,25 +1,25 @@
 import { useRouter } from "next/router";
-import { BaseSyntheticEvent, FunctionComponent } from "react";
+import { BaseSyntheticEvent, FunctionComponent, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import { CreateBookValues, Genres } from "types";
-import "fontsource-roboto";
 
 const Form = styled.form`
   padding: 128px;
   margin: 0 auto;
-  width: 300px;
-  font-family: Roboto;
+  width: 600px;
 `;
 
 const FormSection = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
 `;
 
 const NewBook: FunctionComponent = () => {
   const router = useRouter();
+  const [imageSrc, setImageSrc] = useState("");
+  const [imageUploaded, setImageUploaded] = useState(false);
   const createBook = async (event: BaseSyntheticEvent) => {
     try {
       event.preventDefault();
@@ -43,6 +43,13 @@ const NewBook: FunctionComponent = () => {
     } catch (e) {
       throw new Error(e);
     }
+  };
+
+  const onUploadImage = (event: BaseSyntheticEvent) => {
+    const file = event.target.files[0];
+    const src = URL.createObjectURL(file);
+    setImageSrc(src);
+    setImageUploaded(true);
   };
 
   return (
@@ -73,14 +80,37 @@ const NewBook: FunctionComponent = () => {
         </select>
       </FormSection>
 
-      {/* <FormSection>
+      <FormSection>
         <label htmlFor="image">Image: </label>
-        <input type="file" id="image" accept="image/*" />
-      </FormSection> */}
+        <input
+          type="file"
+          id="image"
+          accept="image/*"
+          onChange={onUploadImage}
+          style={{ marginLeft: "80px" }}
+        />
+      </FormSection>
 
-      <Button variant="contained" type="submit">
-        Create
-      </Button>
+      {imageUploaded && (
+        <div style={{ textAlign: "center" }}>
+          <img style={{ maxWidth: "400px" }} src={imageSrc} />
+        </div>
+      )}
+      <>
+        <Button
+          type="reset"
+          value="Reset"
+          onClick={() => {
+            setImageUploaded(false);
+            setImageSrc("");
+          }}
+        >
+          Reset
+        </Button>
+        <Button variant="contained" type="submit">
+          Create
+        </Button>
+      </>
     </Form>
   );
 };
