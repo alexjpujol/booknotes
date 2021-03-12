@@ -8,7 +8,11 @@ import { Typography } from "@material-ui/core";
 import { Genres } from "types";
 
 const Main = styled.div`
-  padding: 32px;
+  margin: 32px;
+  padding: 8px;
+  background-color: white;
+  height: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;
 
 const StyledList = styled.ul`

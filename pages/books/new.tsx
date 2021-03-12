@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { BaseSyntheticEvent, FunctionComponent, useRef, useState } from "react";
+import { BaseSyntheticEvent, FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import { CreateBookValues, Genres } from "types";
@@ -23,18 +23,15 @@ const NewBook: FunctionComponent = () => {
   const createBook = async (event: BaseSyntheticEvent) => {
     try {
       event.preventDefault();
-      const formValues: CreateBookValues = {
-        name: event.target.name.value as string,
-        dateStart: event.target.dateStart.value as Date,
-        dateEnd: event.target.dateEnd.value as Date,
-        genre: event.target.genre.value,
-        // image: event.target.image.files[0],
-      };
+      const formValues = new FormData();
+      formValues.append("name", event.target.name.value);
+      formValues.append("author", event.target.author.value);
+      formValues.append("dateStart", event.target.dateStart.value);
+      formValues.append("dateEnd", event.target.dateEnd.value);
+      formValues.append("genre", event.target.genre.value);
+      formValues.append("image", event.target.image.files[0]);
       const res = await fetch(`/api/books/new`, {
-        body: JSON.stringify(formValues),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: formValues,
         method: "POST",
       });
       if (res.status === 201) {
@@ -53,10 +50,15 @@ const NewBook: FunctionComponent = () => {
   };
 
   return (
-    <Form onSubmit={createBook}>
+    <Form onSubmit={createBook} encType="multipart/form-data">
       <FormSection>
         <label htmlFor="name">Name: </label>
         <input id="name" type="text" required />
+      </FormSection>
+
+      <FormSection>
+        <label htmlFor="author">Author: </label>
+        <input id="author" type="text" required />
       </FormSection>
 
       <FormSection>
@@ -83,6 +85,7 @@ const NewBook: FunctionComponent = () => {
       <FormSection>
         <label htmlFor="image">Image: </label>
         <input
+          name="image"
           type="file"
           id="image"
           accept="image/*"

@@ -4,6 +4,7 @@ export interface Book {
   name: string;
   notes: Array<string>;
   genre: Array<Genres>;
+  imageUrl: string;
 }
 
 export interface CreateBookValues {

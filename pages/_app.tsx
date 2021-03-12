@@ -1,5 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import "fontsource-roboto";
+import cloudinaryInit from "utils/cloudinary";
 
 const GlobalStyle = createGlobalStyle`
   body {
