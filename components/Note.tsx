@@ -20,11 +20,13 @@ const PostIt = styled.div`
   background-color: ${PostItColor};
   margin: 24px;
   padding: 16px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;
 
 const Icons = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 4px;
   span {
     padding-left: 8px;
   }

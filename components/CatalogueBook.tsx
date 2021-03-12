@@ -10,9 +10,9 @@ interface CatalogueBookProps {
 const BookContainer = styled.div`
   width: 350px;
   height: 350px;
-  border: 1px solid black;
   margin: 3em;
   text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `;
 
 const BookTitle = styled.h2`

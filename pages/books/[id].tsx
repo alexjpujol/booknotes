@@ -28,11 +28,13 @@ const FormContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  height: 130px;
-  width: 250px;
+  height: 282px;
+  width: 282px;
   text-align: center;
   margin: 24px;
   padding-top: 120px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-sizing: border-box;
 `;
 
 interface BookDetailProps {
