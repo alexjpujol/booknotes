@@ -1,5 +1,6 @@
 export interface Book {
   _id: string;
+  author: string;
   name: string;
   notes: Array<string>;
   genre: Array<Genres>;

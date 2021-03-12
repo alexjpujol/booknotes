@@ -1,5 +1,10 @@
+// next
+import Link from "next/link";
+// lib
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import { Typography } from "@material-ui/core";
+// types
 import { Genres } from "types";
 
 const Main = styled.div`
@@ -9,10 +14,14 @@ const Main = styled.div`
 const StyledList = styled.ul`
   list-style-type: none;
   padding: 0;
-`;
 
-const StyledListItem = styled.li`
-  margin: 12px;
+  a {
+    color: black;
+  }
+
+  a:visited {
+    color: black;
+  }
 `;
 
 const years: Array<number> = [2021, 2020, 2019];
@@ -21,17 +30,25 @@ const genres: Array<Genres> = Object.values(Genres);
 export const Sidebar: FunctionComponent = () => {
   return (
     <Main>
-      <h4>Year</h4>
+      <Typography variant="h5">Year</Typography>
       <StyledList>
-        {years.map((year) => (
-          <StyledListItem key={`${year}-sidenav`}>{year}</StyledListItem>
+        {years.map((yearRead) => (
+          <Typography key={`${yearRead}-sidenav`}>
+            <Link href={{ pathname: "/", query: { year: yearRead } }}>
+              <a>{yearRead}</a>
+            </Link>
+          </Typography>
         ))}
       </StyledList>
 
-      <h4>Genre</h4>
+      <Typography variant="h5">Genre</Typography>
       <StyledList>
-        {genres.map((genre) => (
-          <StyledListItem key={`${genre}-sidenav`}>{genre}</StyledListItem>
+        {genres.map((bookGenre) => (
+          <Typography key={`${bookGenre}-sidenav`}>
+            <Link href={{ pathname: "/", query: { genre: bookGenre } }}>
+              <a>{bookGenre}</a>
+            </Link>
+          </Typography>
         ))}
       </StyledList>
     </Main>

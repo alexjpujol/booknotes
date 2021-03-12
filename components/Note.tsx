@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 // lib
 import { BaseSyntheticEvent, FunctionComponent, useState } from "react";
 import styled from "styled-components";
+import { Typography } from "@material-ui/core";
 import { timeout } from "utils/timeout";
 // components
 import NoteForm from "components/NoteForm";
@@ -107,7 +108,7 @@ const Note: FunctionComponent<NoteProps> = ({ text }) => {
               icon={IconDelete}
             />
           </Icons>
-          <div>{text}</div>
+          <Typography>{text}</Typography>
         </>
       )}
     </PostIt>

@@ -74,7 +74,7 @@ export const BookDetail: FunctionComponent<BookDetailProps> = ({ book }) => {
 
   return (
     <>
-      <Header title={book.name} />
+      <Header title={book.name} author={book.author} />
       <Main>
         {book.notes.map((note, idx) => (
           <Note key={`${idx}-book-${book.name}`} text={note} />

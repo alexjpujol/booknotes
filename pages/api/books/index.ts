@@ -6,14 +6,14 @@ import Book from "models/Book";
 
 const cors = initMiddleware(
   Cors({
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "OPTIONS"],
   })
 );
 
 const books: NextApiHandler = async (req, res) => {
   await cors(req, res);
   await dbConnection();
-  const results = await Book.find({});
+  const results = await Book.find(req.query);
   const books = results.map((result) => {
     const book = result.toObject();
     book._id = book._id.toString();

@@ -11,19 +11,20 @@ import { ElementSizes } from "types";
 
 const Main = styled.div`
   padding: 16px 32px;
-  display: flex;
 `;
 
 const IconSpacer = styled.div`
   margin-top: 32px;
-  margin-right: 40%;
+  margin-right: 210px;
+  display: inline-block;
 `;
 
 interface HeaderProps {
-  title: string;
+  title: string | React.ReactNode;
+  author?: string;
 }
 
-const Header: FunctionComponent<HeaderProps> = ({ title }) => {
+const Header: FunctionComponent<HeaderProps> = ({ title, author }) => {
   const router = useRouter();
   return (
     <Main>
@@ -34,7 +35,16 @@ const Header: FunctionComponent<HeaderProps> = ({ title }) => {
           size={ElementSizes.lg}
         />
       </IconSpacer>
-      <Typography variant="h2">{title}</Typography>
+
+      {!!author ? (
+        <Typography style={{ display: "inline-block" }} variant="h2">
+          {title} by {author}
+        </Typography>
+      ) : (
+        <Typography style={{ display: "inline-block" }} variant="h2">
+          {title}
+        </Typography>
+      )}
     </Main>
   );
 };

@@ -1,12 +1,15 @@
 import { useRouter } from "next/router";
 import { BaseSyntheticEvent, FunctionComponent } from "react";
 import styled from "styled-components";
+import { Button } from "@material-ui/core";
 import { CreateBookValues, Genres } from "types";
+import "fontsource-roboto";
 
 const Form = styled.form`
-  padding: 48px;
+  padding: 128px;
   margin: 0 auto;
   width: 300px;
+  font-family: Roboto;
 `;
 
 const FormSection = styled.div`
@@ -75,7 +78,9 @@ const NewBook: FunctionComponent = () => {
         <input type="file" id="image" accept="image/*" />
       </FormSection> */}
 
-      <button type="submit">Create</button>
+      <Button variant="contained" type="submit">
+        Create
+      </Button>
     </Form>
   );
 };

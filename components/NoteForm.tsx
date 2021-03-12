@@ -1,10 +1,6 @@
 // lib
 import { FunctionComponent, BaseSyntheticEvent } from "react";
-import styled from "styled-components";
-
-const StyledButton = styled.button`
-  margin-right: 16px;
-`;
+import { Button } from "@material-ui/core";
 
 interface NoteFormProps {
   onSubmit: (event: BaseSyntheticEvent) => Promise<void>;
@@ -26,10 +22,12 @@ export const NoteForm: FunctionComponent<NoteFormProps> = ({
         required
       ></textarea>
       <>
-        <StyledButton type="submit">Save</StyledButton>
-        <StyledButton type="button" onClick={() => onClose()}>
+        <Button variant="contained" type="submit">
+          Save
+        </Button>
+        <Button type="button" onClick={() => onClose()}>
           Cancel
-        </StyledButton>
+        </Button>
       </>
     </form>
   );

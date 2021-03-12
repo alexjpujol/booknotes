@@ -5,6 +5,7 @@ import ErrorPage from "next/error";
 import { FunctionComponent } from "react";
 import fetch from "node-fetch";
 import styled from "styled-components";
+import qs from "querystring";
 // components
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
@@ -53,9 +54,10 @@ const Home: FunctionComponent<HomeProps> = ({ books }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { res } = context;
+  const { res, query } = context;
+  const params = qs.encode(query);
   try {
-    const result = await fetch(`${process.env.API_URL}/api/books`);
+    const result = await fetch(`${process.env.API_URL}/api/books?${params}`);
     const books = await result.json();
     return {
       props: {
