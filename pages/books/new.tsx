@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 import { BaseSyntheticEvent, FunctionComponent, useState } from "react";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
-import { CreateBookValues, Genres } from "types";
+import Breadcrumbs from "components/common/Breadcrumbs";
+import { Genres } from "types";
 
 const Form = styled.form`
   padding: 128px;
@@ -50,71 +51,80 @@ const NewBook: FunctionComponent = () => {
   };
 
   return (
-    <Form onSubmit={createBook} encType="multipart/form-data">
-      <FormSection>
-        <label htmlFor="name">Name: </label>
-        <input id="name" type="text" required minLength={2} maxLength={40} />
-      </FormSection>
+    <>
+      <Breadcrumbs />
+      <Form onSubmit={createBook} encType="multipart/form-data">
+        <FormSection>
+          <label htmlFor="name">Name: </label>
+          <input id="name" type="text" required minLength={2} maxLength={40} />
+        </FormSection>
 
-      <FormSection>
-        <label htmlFor="author">Author: </label>
-        <input id="author" type="text" required minLength={2} maxLength={40} />
-      </FormSection>
+        <FormSection>
+          <label htmlFor="author">Author: </label>
+          <input
+            id="author"
+            type="text"
+            required
+            minLength={2}
+            maxLength={40}
+          />
+        </FormSection>
 
-      <FormSection>
-        <label htmlFor="dateStart">Date Started: </label>
-        <input id="dateStart" type="date" max={Date.now()} required />
-      </FormSection>
+        <FormSection>
+          <label htmlFor="dateStart">Date Started: </label>
+          <input id="dateStart" type="date" max={Date.now()} required />
+        </FormSection>
 
-      <FormSection>
-        <label htmlFor="dateEnd">Date Ended: </label>
-        <input id="dateEnd" type="date" max={Date.now()} />
-      </FormSection>
+        <FormSection>
+          <label htmlFor="dateEnd">Date Ended: </label>
+          <input id="dateEnd" type="date" max={Date.now()} />
+        </FormSection>
 
-      <FormSection>
-        <label htmlFor="genre">Genre: </label>
-        <select id="genre">
-          {Object.values(Genres).map((genre) => (
-            <option key={genre} value={genre}>
-              {genre}
-            </option>
-          ))}
-        </select>
-      </FormSection>
+        <FormSection>
+          <label htmlFor="genre">Genre: </label>
+          <select id="genre">
+            {Object.values(Genres).map((genre) => (
+              <option key={genre} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+        </FormSection>
 
-      <FormSection>
-        <label htmlFor="image">Image: </label>
-        <input
-          name="image"
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={onUploadImage}
-          style={{ marginLeft: "80px" }}
-        />
-      </FormSection>
+        <FormSection>
+          <label htmlFor="image">Image: </label>
+          <input
+            name="image"
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={onUploadImage}
+            style={{ marginLeft: "80px" }}
+          />
+        </FormSection>
 
-      {imageUploaded && (
-        <div style={{ textAlign: "center" }}>
-          <img style={{ maxWidth: "400px" }} src={imageSrc} />
-        </div>
-      )}
-      <>
-        <Button
-          type="reset"
-          value="Reset"
-          onClick={() => {
-            setImageUploaded(false);
-            setImageSrc("");
-          }}
-        >
-          Reset
-        </Button>
-        <Button variant="contained" type="submit">
-          Create
-        </Button>
-      </>
-    </Form>
+        {imageUploaded && (
+          <div style={{ textAlign: "center" }}>
+            <img style={{ maxWidth: "400px" }} src={imageSrc} />
+          </div>
+        )}
+        <>
+          <Button
+            type="reset"
+            value="Reset"
+            onClick={() => {
+              setImageUploaded(false);
+              setImageSrc("");
+            }}
+          >
+            Reset
+          </Button>
+          <Button variant="contained" type="submit">
+            Create
+          </Button>
+        </>
+      </Form>
+    </>
   );
 };
 

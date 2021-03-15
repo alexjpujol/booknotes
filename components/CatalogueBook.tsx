@@ -14,7 +14,8 @@ interface CatalogueBookProps {
 
 const BookContainer = styled.div`
   width: 400px;
-  height: 400px;
+  min-height: 400px;
+  height: fit-content;
   margin: 3em;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -36,6 +37,7 @@ const BookTitle = styled(Typography)`
 const Image = styled.img`
   max-width: 350px;
   max-height: 350px;
+  padding: 8px;
 `;
 
 const CatalogueBook: FunctionComponent<CatalogueBookProps> = ({

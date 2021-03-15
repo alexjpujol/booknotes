@@ -19,6 +19,7 @@ const StyledList = styled.ul`
   padding: 0;
 
   a {
+    text-decoration: none;
     color: black;
   }
 
@@ -35,9 +36,12 @@ export const Sidebar: FunctionComponent = () => {
     <Main>
       <Typography variant="h5">Year</Typography>
       <StyledList>
+        <Link href={{ pathname: "/" }}>
+          <a>All</a>
+        </Link>
         {years.map((yearRead) => (
           <Typography key={`${yearRead}-sidenav`}>
-            <Link href={{ pathname: "/", query: { year: yearRead } }}>
+            <Link href={{ pathname: "/", query: { dateStart: yearRead } }}>
               <a>{yearRead}</a>
             </Link>
           </Typography>
@@ -46,6 +50,9 @@ export const Sidebar: FunctionComponent = () => {
 
       <Typography variant="h5">Genre</Typography>
       <StyledList>
+        <Link href={{ pathname: "/" }}>
+          <a>All</a>
+        </Link>
         {genres.map((bookGenre) => (
           <Typography key={`${bookGenre}-sidenav`}>
             <Link href={{ pathname: "/", query: { genre: bookGenre } }}>

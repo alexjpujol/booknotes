@@ -15,6 +15,7 @@ import IconWrapper from "components/common/IconWrapper";
 import AddIcon from "components/icons/AddIcon";
 // types
 import { Book, ElementSizes, CreateNoteValues } from "types";
+import { Breadcrumbs } from "components/common/Breadcrumbs";
 
 const Main = styled.div`
   padding: 32px;
@@ -120,6 +121,7 @@ export const BookDetail: FunctionComponent<BookDetailProps> = ({ book }) => {
   return (
     <>
       <Header title={book.name} author={book.author} />
+      <Breadcrumbs title={book.name} />
       <Main>
         {book.notes.map((note, idx) => (
           <Note key={`${idx}-book-${book.name}`} text={note} />

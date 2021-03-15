@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 interface NoteFormProps {
   onSubmit: (event: BaseSyntheticEvent) => Promise<void>;
   onClose: () => void;
-  initialValues: string;
+  initialValues?: string;
 }
 
 export const NoteForm: FunctionComponent<NoteFormProps> = ({

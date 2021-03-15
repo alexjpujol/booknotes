@@ -15,7 +15,15 @@ const cors = initMiddleware(
 const books: NextApiHandler = async (req, res) => {
   await cors(req, res);
   await dbConnection();
-  const results = await Book.find(req.query);
+  if (req.query.dateStart) {
+    req.query = {
+      $expr: {
+        // @ts-ignore
+        $eq: [{ $year: "$dateStart" }, parseInt(req.query.dateStart, 10)],
+      },
+    };
+  }
+  const results = await Book.find(req.query).sort({ dateStart: -1 });
   const books = results.map((result) => {
     const book = result.toObject();
     book._id = book._id.toString();
