@@ -55,7 +55,7 @@ const newBook: NextApiHandler = async (
     genre: body.genre,
     dateStart: body.dateStart,
     dateEnd: body.dateEnd,
-    imageId: image.public_id,
+    imageUrl: image.secure_url,
   });
   newBook.save((err) => {
     if (err) throw new Error(err);

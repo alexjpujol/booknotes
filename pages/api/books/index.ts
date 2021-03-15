@@ -1,9 +1,10 @@
 import { NextApiHandler } from "next";
+// lib
 import Cors from "cors";
+// utils
 import dbConnection from "utils/mongodb";
 import initMiddleware from "utils/init-middleware";
 import Book from "models/Book";
-import cloudinary from "cloudinary";
 
 const cors = initMiddleware(
   Cors({
@@ -18,7 +19,6 @@ const books: NextApiHandler = async (req, res) => {
   const books = results.map((result) => {
     const book = result.toObject();
     book._id = book._id.toString();
-    book.imageUrl = cloudinary.v2.url(book.imageId);
     return book;
   });
   return res.status(200).json(books);

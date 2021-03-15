@@ -53,12 +53,12 @@ const NewBook: FunctionComponent = () => {
     <Form onSubmit={createBook} encType="multipart/form-data">
       <FormSection>
         <label htmlFor="name">Name: </label>
-        <input id="name" type="text" required />
+        <input id="name" type="text" required minLength={2} maxLength={40} />
       </FormSection>
 
       <FormSection>
         <label htmlFor="author">Author: </label>
-        <input id="author" type="text" required />
+        <input id="author" type="text" required minLength={2} maxLength={40} />
       </FormSection>
 
       <FormSection>
@@ -68,7 +68,7 @@ const NewBook: FunctionComponent = () => {
 
       <FormSection>
         <label htmlFor="dateEnd">Date Ended: </label>
-        <input id="dateEnd" type="date" max={Date.now()} required />
+        <input id="dateEnd" type="date" max={Date.now()} />
       </FormSection>
 
       <FormSection>

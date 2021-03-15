@@ -18,6 +18,7 @@ const PostItColor = `rgb(254, 255, 156)`;
 const PostIt = styled.div`
   width: 250px;
   height: 250px;
+  overflow: scroll;
   background-color: ${PostItColor};
   margin: 24px;
   padding: 16px;
@@ -93,6 +94,7 @@ const Note: FunctionComponent<NoteProps> = ({ text }) => {
         <NoteForm
           onClose={() => setShowEditNoteForm(false)}
           onSubmit={editNote}
+          initialValues={text}
         />
       ) : (
         <>

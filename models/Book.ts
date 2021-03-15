@@ -4,12 +4,12 @@ const BookSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please provide a name for this book."],
-    maxlength: [20, "Book name cannot be more than 60 characters"],
+    maxlength: [60, "Book name cannot be more than 60 characters"],
   },
   author: {
     type: String,
     required: [true, "Please provide an author for this book."],
-    maxlength: [20, "Book author cannot be more than 60 characters"],
+    maxlength: [60, "Book author cannot be more than 60 characters"],
   },
   genre: {
     type: Array,
