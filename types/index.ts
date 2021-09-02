@@ -40,4 +40,6 @@ export enum Genres {
   PROGRAMMING = "Programming",
   SELF_HELP = "Self Help",
   MATH = "Math",
+  ECONOMICS = "Economics",
+  BIOGRAPHY = "Biography",
 }
